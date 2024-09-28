@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 
 # Initialize the Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}) # Enable CORS
+CORS(app) # Enable CORS
 
 app.config['CORS_HEADERS'] = 'application/json'
 
