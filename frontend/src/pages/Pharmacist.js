@@ -6,6 +6,7 @@ import SideMenu from '../components/SideMenu'; // Sidebar for navigation
 import Header from '../components/Header'; // Header component
 import MainGrid from '../components/MainGrid'; // Main content grid for pharmacist-specific data
 import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared theme
+import WebcamCapture from '../WebcamCapture'; 
 
 const PharmacistDashboard = () => {
   return (
@@ -35,7 +36,7 @@ const PharmacistDashboard = () => {
             {/* Header component for the page title */}
             <Header title="Pharmacist Dashboard" />
             {/* Main content grid where you can add pharmacist-specific information */}
-            <MainGrid />
+            <WebcamCapture />
           </Stack>
         </Box>
       </Box>

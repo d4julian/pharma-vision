@@ -17,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/pharmacist" element={<PharmacistDashboard />} />
+          {/* <Route path="/patient" element={<Patient />} /> */}
         </Routes>
       </Router>
     </AppTheme>
