@@ -6,11 +6,7 @@ import numpy as np
 from dotenv import load_dotenv
 from inference_sdk import InferenceHTTPClient
 from flask_cors import CORS, cross_origin
-from supabase import create_client, Client
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
 load_dotenv()
