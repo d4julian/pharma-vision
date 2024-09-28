@@ -1,14 +1,21 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { useColorScheme } from '@mui/material/styles'; // Import useColorScheme hook
 
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import ModeNightRoundedIcon from '@mui/icons-material/ModeNightRounded';
 import MenuButton from './MenuButton';
 
-function ToggleColorMode({ mode, toggleColorMode, ...props }) {
+function ToggleColorMode({ ...props }) {
+  const { mode, setMode } = useColorScheme(); // Use the hook to get and set the mode
+
+  const toggleColorMode = () => {
+    setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark')); // Toggle between 'dark' and 'light'
+  };
+
   return (
     <MenuButton
-      onClick={toggleColorMode}
+      onClick={toggleColorMode} // Call the toggle function
       size="small"
       aria-label="button to toggle theme"
       {...props}
@@ -23,8 +30,8 @@ function ToggleColorMode({ mode, toggleColorMode, ...props }) {
 }
 
 ToggleColorMode.propTypes = {
-  mode: PropTypes.oneOf(['dark', 'light']).isRequired,
-  toggleColorMode: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['dark', 'light']),
+  toggleColorMode: PropTypes.func, // No longer needed as a required prop
 };
 
 export default ToggleColorMode;
