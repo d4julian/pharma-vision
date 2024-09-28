@@ -1,11 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import WebcamCapture from './WebcamCapture';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <main>
+          <WebcamCapture />
+        </main>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
