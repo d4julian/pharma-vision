@@ -6,7 +6,7 @@ import base64
 # Initialize the inference client
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="jOCcQINJElj5ol8PzmYC"
+    api_key=""
 )
 
 # Initialize the webcam
