@@ -2,3 +2,4 @@ Flask
 flask-cors
 opencv-python
 inference_sdk
+python-dotenv

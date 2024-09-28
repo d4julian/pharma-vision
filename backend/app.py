@@ -1,9 +1,14 @@
+import os
 from flask import Flask, request, jsonify
 import cv2
 import base64
 import numpy as np
+from dotenv import load_dotenv
 from inference_sdk import InferenceHTTPClient
 from flask_cors import CORS, cross_origin
+
+load_dotenv()
+ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -14,7 +19,7 @@ app.config['CORS_HEADERS'] = 'application/json'
 # Initialize the inference client
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key=""
+    api_key=ROBOFLOW_API_KEY
 )
 
 # Define the inference route
