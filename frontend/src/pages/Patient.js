@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import SideMenu from '../components/SideMenu'; // Sidebar for navigation
 import Header from '../components/Header'; // Header component
 import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared theme
-import PrescriptionDataList from '../components/PrescriptionDataList';
+import PatientPrescriptionDataLists from '../components/PatientPrescriptionDataLists';
 
 export default function Patient() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +36,7 @@ export default function Patient() {
                         {/* Header component for the page title */}
                         <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                         {/* Main content grid where you can add patient-specific information */}
-                        <PrescriptionDataList searchTerm={searchTerm} title="Search Medications" pageSize={5}/>
+                        <PatientPrescriptionDataLists searchTerm={searchTerm} title="Search Medications" pageSize={5}/>
                     </Stack>
                 </Box>
             </Box>

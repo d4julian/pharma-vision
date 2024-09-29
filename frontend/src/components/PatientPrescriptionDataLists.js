@@ -1,46 +1,39 @@
-import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+// PrescriptionDataList.js
+import React from 'react';
+import usePrescriptions from '../hooks/patientPrescriptions';
+import { DataGrid } from '@mui/x-data-grid';
 
-const usePrescriptions = () => {
-  const [prescriptions, setPrescriptions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPrescriptions = async () => {
-      try {
-        setLoading(true);
-        const { data, error } = await supabase
-          .from('prescriptions')
-          .select(`
-            id,
-            patient_id,
-            doctors(name),
-            pill_id,
-            pills(pill_name, dosage),
-            patients(first_name, last_name)
-          `)
-          .order('id', { ascending: true });
+const PrescriptionDataList = () => {
+  const { prescriptions, loading, error } = usePrescriptions();
 
-        if (error) throw error;
+  const columns = [
+    { field: 'first_name', headerName: 'First Name', width: 130 },
+    { field: 'last_name', headerName: 'Last Name', width: 130 },
+    { field: 'pill_name', headerName: 'Pill Name', width: 130 },
+    { field: 'dosage', headerName: 'Pill Dosage', width: 130 },
+    { field: 'name', headerName: 'Doctor Name', width: 150 },
+  ];
 
-        setPrescriptions(data);
-      } catch (error) {
-        console.error('Error fetching prescriptions:', error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Map over the prescriptions to construct the rows for the DataGrid
+  const rows = prescriptions.map((prescription) => ({
+    id: prescription.id, // Ensure this is unique
+    first_name: prescription.patients?.first_name || 'N/A', // Use optional chaining to avoid errors
+    last_name: prescription.patients?.last_name || 'N/A', // Use optional chaining to avoid errors
+    pill_name: prescription.pills?.pill_name || 'N/A', // Use optional chaining to avoid errors
+    dosage: prescription.pills?.dosage || 'N/A', // Use optional chaining to avoid errors
+    name: prescription.doctors?.name || 'N/A',
+  }));
 
-    fetchPrescriptions();
-  }, []);
+  if (loading) return <div>Loading...</div>;
+  // Update error rendering to display the error message correctly
+  if (error) return <div>Error: {error.message || 'An error occurred'}</div>;
+return(
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid rows={rows} columns={columns} pageSize={5} />
+    </div>
+);
+}
 
-  return { prescriptions, loading, error };
-};
-
-export default usePrescriptions;
+export default PrescriptionDataList;
