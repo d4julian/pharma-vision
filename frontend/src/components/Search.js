@@ -4,13 +4,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
-export default function Search() {
+export default function Search({ searchTerm, setSearchTerm }) {
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <FormControl sx={{ width: { xs: '100%', md: '100ch' } }} variant="outlined">
       <OutlinedInput
         size="small"
         id="search"
         placeholder="Search…"
+        value={searchTerm} // Bind the input value to searchTerm
+        onChange={handleSearchChange} // Update the search term on input change
         sx={{
           '&::placeholder': {
             color: 'rgba(255, 255, 255, 1.0)', // Make the placeholder white with some opacity

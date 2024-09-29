@@ -12,6 +12,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import supabase from '../../supabaseClient'; // Import supabase client, adjust path if necessary
 
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon } from './CustomIcons';
@@ -40,6 +42,9 @@ export default function SignInCard() {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState(''); // Add state for general error messages
+
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,13 +54,32 @@ export default function SignInCard() {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  // Validate inputs and handle Supabase sign-in
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+
+    // Validate inputs before calling Supabase sign-in
+    if (validateInputs()) {
+      try {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          // Handle authentication error
+          setError(error.message);
+        } else {
+          // Navigate to dashboard upon successful login
+          navigate('/dashboard');
+        }
+      } catch (err) {
+        setError('An error occurred during sign-in.');
+      }
+    }
   };
 
   const validateInputs = () => {
@@ -87,8 +111,7 @@ export default function SignInCard() {
 
   return (
     <Card variant="outlined">
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-      </Box>
+      <Box sx={{ display: { xs: 'flex', md: 'none' } }}></Box>
       <Typography
         component="h1"
         variant="h4"
@@ -117,7 +140,6 @@ export default function SignInCard() {
             fullWidth
             variant="outlined"
             color={emailError ? 'error' : 'primary'}
-            sx={{ ariaLabel: 'email' }}
           />
         </FormControl>
         <FormControl>
@@ -140,7 +162,6 @@ export default function SignInCard() {
             type="password"
             id="password"
             autoComplete="current-password"
-            autoFocus
             required
             fullWidth
             variant="outlined"
@@ -152,7 +173,8 @@ export default function SignInCard() {
           label="Remember me"
         />
         <ForgotPassword open={open} handleClose={handleClose} />
-        <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
+        {error && <Typography color="error">{error}</Typography>}
+        <Button type="submit" fullWidth variant="contained">
           Sign in
         </Button>
         <Typography sx={{ textAlign: 'center' }}>
@@ -171,7 +193,7 @@ export default function SignInCard() {
       <Divider>or</Divider>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Button
-          type="submit"
+          type="button"
           fullWidth
           variant="outlined"
           onClick={() => alert('Sign in with Google')}
@@ -180,7 +202,7 @@ export default function SignInCard() {
           Sign in with Google
         </Button>
         <Button
-          type="submit"
+          type="button"
           fullWidth
           variant="outlined"
           onClick={() => alert('Sign in with Facebook')}

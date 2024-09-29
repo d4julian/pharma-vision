@@ -7,11 +7,10 @@ const PrescriptionDataList = () => {
   const { prescriptions, loading, error } = usePrescriptions();
 
   const columns = [
-    { field: 'first_name', headerName: 'First Name', width: 130 },
-    { field: 'last_name', headerName: 'Last Name', width: 130 },
-    { field: 'pill_name', headerName: 'Pill Name', width: 130 },
-    { field: 'dosage', headerName: 'Pill Dosage', width: 130 },
-    { field: 'name', headerName: 'Doctor Name', width: 150 },
+    { field: "id", headerName: "Unique ID", width: 150 },
+    { field: "patient_id", headerName: "Patient ID", width: 90 },
+    { field: "pill_id", headerName: "Pill ID", width: 150 },
+    { field: "doctor_id", headerName: "Doctor", width: 100 }
   ];
 
   // Map over the prescriptions to construct the rows for the DataGrid

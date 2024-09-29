@@ -6,8 +6,8 @@ import DoctorDashboard from './pages/Doctor';
 import PharmacistDashboard from './pages/Pharmacist';
 import Patient from './pages/Patient';
 import AppTheme from './shared-theme/AppTheme';
-import SignInSide from './components/sign-in-side/SignInSide';
-
+import SignInSide from './components/sign-in-side/SignInSide'; // Login page
+import SignUpCard from './components/sign-in-side/SignUpCard'; // Signup page
 
 function App() {
   const [mode, toggleColorMode] = useDarkMode();
@@ -16,11 +16,12 @@ function App() {
     <AppTheme mode={mode}>
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/pharmacist" element={<PharmacistDashboard />} />
           <Route path="/patient" element={<Patient />} />
-          <Route path="/login" element={<SignInSide /> } />
+          <Route path="/login" element={<SignInSide />} /> {/* Login route */}
+          <Route path="/signup" element={<SignUpCard />} /> {/* Signup route */}
         </Routes>
       </Router>
     </AppTheme>
