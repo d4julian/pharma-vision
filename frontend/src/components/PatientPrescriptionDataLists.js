@@ -4,7 +4,6 @@ import React from 'react';
 import usePrescriptions from '../hooks/patientPrescriptions';
 import { DataGrid } from '@mui/x-data-grid';
 
-
 const PrescriptionDataList = () => {
   const { prescriptions, loading, error } = usePrescriptions();
 

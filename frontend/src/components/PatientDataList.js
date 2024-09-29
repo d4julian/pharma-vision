@@ -2,8 +2,9 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import usePatients from '../hooks/patientData'; // Adjust the path as necessary
+import emitter from '../emitter';
 
-export default function PatientDataList({ searchTerm, onRowSelect }) {
+export default function PatientDataList({ searchTerm, onRowClick }) {
   const { patients, loading, error } = usePatients();
 
   const columns = [
@@ -32,7 +33,7 @@ export default function PatientDataList({ searchTerm, onRowSelect }) {
       pageSizeOptions={[10, 20, 50]}
       disableColumnResize
       density="compact"
-      onRowClick={(row) => onRowSelect(row.data)}
+      onRowClick={(params) => emitter.emit('patientSelected', params.row)}
     />
   );
 }
