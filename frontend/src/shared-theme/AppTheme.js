@@ -49,8 +49,7 @@ function AppTheme({ children, disableCustomTheme, themeComponents, mode }) {
 AppTheme.propTypes = {
   children: PropTypes.node,
   disableCustomTheme: PropTypes.bool,
-  themeComponents: PropTypes.object,
-  mode: PropTypes.oneOf(['light', 'dark']).isRequired, // Add mode prop to handle dark/light theme
+  themeComponents: PropTypes.object
 };
 
 export default AppTheme;

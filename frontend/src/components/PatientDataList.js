@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import usePatients from '../hooks/patientData'; // Adjust the path as necessary
 
-export default function PatientDataList({ searchTerm}) {
+export default function PatientDataList({ searchTerm, onRowSelect }) {
   const { patients, loading, error } = usePatients();
 
   const columns = [
@@ -27,11 +27,12 @@ export default function PatientDataList({ searchTerm}) {
         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
       }
       initialState={{
-        pagination: { paginationModel: { pageSize: 20 } },
+        pagination: { paginationModel: { pageSize: 10 } },
       }}
       pageSizeOptions={[10, 20, 50]}
       disableColumnResize
       density="compact"
+      onRowClick={(row) => onRowSelect(row.data)}
     />
   );
 }

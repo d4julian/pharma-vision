@@ -8,10 +8,15 @@ import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared t
 import WebcamCapture from '../WebcamCapture'; 
 import PrescriptionDataList from '../components/PrescriptionDataList';
 import PatientDataList from '../components/PatientDataList';
+import PillsDropdown from '../components/PillsDropdown';
+import Grid from '@mui/material/Grid'; // Import Grid for layout
+import Button from '@mui/material/Button'; // Import the Button component
+
 
 export default function PharmacistDashboard() {
     const [searchTerm, setSearchTerm] = useState('');
     const [detections, setDetections] = useState([]);
+    const [selectedPatient, setSelectedPatient] = useState(null);
   return (
     <AppTheme>
       <CssBaseline />
@@ -30,7 +35,7 @@ export default function PharmacistDashboard() {
           <Stack
             spacing={2}
             sx={{
-              alignItems: 'center',
+              alignItems: 'flex-start',
               mx: 3,
               pb: 10,
               mt: { xs: 8, md: 0 },
@@ -41,7 +46,24 @@ export default function PharmacistDashboard() {
             {/* Main content grid where you can add pharmacist-specific information */}
             { /* <WebcamCapture detections={detections} setDetections={setDetections} /> */ }
             How many pastillas: {detections.length}
-            <PatientDataList searchTerm={searchTerm} />
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={8}>
+                {/* Main content grid where you can add pharmacist-specific information */}
+                <PatientDataList searchTerm={searchTerm} onRowSelect={setSelectedPatient} />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <PillsDropdown selectedPatient={selectedPatient} />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => alert('Mama guebo')}
+                    sx={{
+                        width: '100%', 
+                        mt: 2// Makes the button span 100% of its parent width
+                      }}
+                  >Scan Pills</Button>
+              </Grid>
+            </Grid>
           </Stack>
         </Box>
       </Box>
