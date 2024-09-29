@@ -6,6 +6,8 @@ const usePrescriptions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const demoPatientId = '500';
+
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
@@ -20,6 +22,7 @@ const usePrescriptions = () => {
             pills(pill_name, dosage),
             patients(first_name, last_name)
           `)
+          .eq('patient_id', demoPatientId) // Filter by the hardcoded patient_id
           .order('id', { ascending: true });
 
         if (error) throw error;
