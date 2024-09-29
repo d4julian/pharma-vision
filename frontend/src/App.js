@@ -1,26 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useDarkMode } from './hooks/useDarkMode'; // The custom hook
-import Dashboard from './Dashboard';
-import DoctorDashboard from './pages/Doctor';
-import PharmacistDashboard from './pages/Pharmacist';
-import Patient from './pages/Patient';
-import AppTheme from './shared-theme/AppTheme';
+import "./App.css";
+import WebcamCapture from "./WebcamCapture";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Dashboard from "./Dashboard";
+import Doctor from "./pages/Doctor";
+import SignInSide from './components/sign-in-side/SignInSide';
+
 
 function App() {
   const [mode, toggleColorMode] = useDarkMode();
 
   return (
-    <AppTheme mode={mode}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/doctor" element={<DoctorDashboard />} />
-          <Route path="/pharmacist" element={<PharmacistDashboard />} />
-          <Route path="/patient" element={<Patient />} />
-        </Routes>
-      </Router>
-    </AppTheme>
+    <Router>
+      <Routes>
+      <Route path="/" element={<SignInSide />} />        <Route path="/doctor" element={<Doctor />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
