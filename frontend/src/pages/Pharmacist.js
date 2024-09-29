@@ -7,8 +7,10 @@ import Header from '../components/Header'; // Header component
 import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared theme
 import WebcamCapture from '../WebcamCapture'; 
 import PrescriptionDataList from '../components/PrescriptionDataList';
+import PatientDataList from '../components/PatientDataList';
 
 export default function PharmacistDashboard() {
+    const [searchTerm, setSearchTerm] = useState('');
     const [detections, setDetections] = useState([]);
   return (
     <AppTheme>
@@ -35,11 +37,11 @@ export default function PharmacistDashboard() {
             }}
           >
             {/* Header component for the page title */}
-            <Header title="Pharmacist Dashboard" />
+            <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
             {/* Main content grid where you can add pharmacist-specific information */}
-            <WebcamCapture detections={detections} setDetections={setDetections}/>
+            { /* <WebcamCapture detections={detections} setDetections={setDetections} /> */ }
             How many pastillas: {detections.length}
-            <PrescriptionDataList />
+            <PatientDataList searchTerm={searchTerm} />
           </Stack>
         </Box>
       </Box>

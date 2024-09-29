@@ -21,7 +21,6 @@ export default function PatientDataList({ searchTerm}) {
   return (
     <DataGrid
       autoHeight
-      checkboxSelection
       rows={filteredPatients}
       columns={columns}
       getRowClassName={(params) =>
