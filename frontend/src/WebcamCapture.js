@@ -65,7 +65,8 @@ const WebcamCapture = () => {
 
   useEffect(() => {
     // Set an interval to capture frames for real-time detection
-    const interval = setInterval(capture, 150);  // Adjust the interval as needed
+    //const interval = setInterval(capture, 150);  // Adjust the interval as needed
+    const interval = setInterval(capture, 3000);  // Adjust the interval as needed
     return () => clearInterval(interval);  // Clean up on component unmount
   }, [capture]);
 

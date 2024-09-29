@@ -4,7 +4,7 @@ import { useDarkMode } from './hooks/useDarkMode'; // The custom hook
 import Dashboard from './Dashboard';
 import DoctorDashboard from './pages/Doctor';
 import PharmacistDashboard from './pages/Pharmacist';
-// import Patient from './pages/Patient';
+import Patient from './pages/Patient';
 import AppTheme from './shared-theme/AppTheme';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/pharmacist" element={<PharmacistDashboard />} />
+          <Route path="/patient" element={<Patient />} />
         </Routes>
       </Router>
     </AppTheme>
