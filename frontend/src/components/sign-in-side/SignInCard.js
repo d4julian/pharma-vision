@@ -15,7 +15,6 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../../supabaseClient'; // Make sure this import path is correct
 
-import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon } from './CustomIcons';
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -60,11 +59,6 @@ export default function SignInCard() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    console.log(email);
-    console.log(password);
-
-    // Validate inputs before attempting to sign in
-    if (validateInputs(email, password)) {
       try {
         console.log({ email, password });
         // Sign in with Supabase
@@ -84,31 +78,6 @@ export default function SignInCard() {
         setError('An unexpected error occurred during sign-in.');
         console.error('Unexpected error during sign-in:', err);
       }
-    }
-  };
-
-  const validateInputs = (email, password) => {
-    let isValid = true;
-
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password || password.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    return isValid;
   };
 
   return (
@@ -174,7 +143,6 @@ export default function SignInCard() {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <ForgotPassword open={open} handleClose={handleClose} />
         {error && <Typography color="error">{error}</Typography>}
         <Button type="submit" fullWidth variant="contained">
           Sign in
