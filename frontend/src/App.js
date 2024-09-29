@@ -13,10 +13,10 @@ function App() {
   const [mode, toggleColorMode] = useDarkMode();
 
   return (
-    <AppTheme mode={mode}>
+    <AppTheme>
       <Router>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/pharmacist" element={<PharmacistDashboard />} />
           <Route path="/patient" element={<Patient />} />
