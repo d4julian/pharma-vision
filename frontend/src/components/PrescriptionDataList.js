@@ -1,9 +1,8 @@
-// PrescriptionDataList.js
-import React from 'react';
-import usePrescriptions from '../hooks/patientPrescriptions';
-import { DataGrid } from '@mui/x-data-grid';
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import usePrescriptions from "../hooks/prescriptionData"; // Adjust the path as necessary
 
-const PrescriptionDataList = ({ searchTerm }) => {
+export default function PrescriptionDataList() {
   const { prescriptions, loading, error } = usePrescriptions();
 
   const columns = [
@@ -13,28 +12,24 @@ const PrescriptionDataList = ({ searchTerm }) => {
     { field: "doctor_id", headerName: "Doctor", width: 100 }
   ];
 
-  const filteredPrescriptions = prescriptions.filter((prescription) => prescription.pills.pill_name.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  // Map over the prescriptions to construct the rows for the DataGrid
-  const rows = filteredPrescriptions.map((prescription) => ({
-    id: prescription.id, // Ensure this is unique
-    first_name: prescription.patients?.first_name || 'N/A', // Use optional chaining to avoid errors
-    last_name: prescription.patients?.last_name || 'N/A', // Use optional chaining to avoid errors
-    pill_name: prescription.pills?.pill_name || 'N/A', // Use optional chaining to avoid errors
-    dosage: prescription.pills?.dosage || 'N/A', // Use optional chaining to avoid errors
-    name: prescription.doctors?.name || 'N/A',
-  }));
-
   if (loading) return <div>Loading...</div>;
-
-  // Update error rendering to display the error message correctly
-  if (error) return <div>Error: {error.message || 'An error occurred'}</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} pageSize={5} />
-    </div>
+    <DataGrid
+      autoHeight
+      checkboxSelection
+      rows={prescriptions}
+      columns={columns}
+      getRowClassName={(params) =>
+        params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
+      }
+      initialState={{
+        pagination: { paginationModel: { pageSize: 20 } },
+      }}
+      pageSizeOptions={[10, 20, 50]}
+      disableColumnResize
+      density="compact"
+    />
   );
-};
-
-export default PrescriptionDataList;
+}
