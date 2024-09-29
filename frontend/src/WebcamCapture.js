@@ -2,11 +2,10 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import axios from 'axios';
 
-const WebcamCapture = () => {
+const WebcamCapture = ({detections, setDetections}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [detections, setDetections] = useState([]);
-
+  
   // Capture image and send it to Flask backend for inference
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();  // Capture the image from the webcam
