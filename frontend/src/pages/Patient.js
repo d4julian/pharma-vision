@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -8,6 +8,7 @@ import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared t
 import PrescriptionDataList from '../components/PrescriptionDataList';
 
 export default function Patient() {
+    const [searchTerm, setSearchTerm] = useState('');
     return (
         <AppTheme>
             <CssBaseline />
@@ -33,9 +34,9 @@ export default function Patient() {
                         }}
                     >
                         {/* Header component for the page title */}
-                        <Header title="Patient Dashboard" />
+                        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                         {/* Main content grid where you can add patient-specific information */}
-                        <PrescriptionDataList title="Search Medications" pageSize={5}/>
+                        <PrescriptionDataList searchTerm={searchTerm} title="Search Medications" pageSize={5}/>
                     </Stack>
                 </Box>
             </Box>

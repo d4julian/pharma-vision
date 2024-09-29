@@ -3,7 +3,7 @@ import React from 'react';
 import usePrescriptions from '../hooks/patientPrescriptions';
 import { DataGrid } from '@mui/x-data-grid';
 
-const PrescriptionDataList = () => {
+const PrescriptionDataList = ({ searchTerm }) => {
   const { prescriptions, loading, error } = usePrescriptions();
 
   const columns = [
@@ -13,8 +13,10 @@ const PrescriptionDataList = () => {
     { field: "doctor_id", headerName: "Doctor", width: 100 }
   ];
 
+  const filteredPrescriptions = prescriptions.filter((prescription) => prescription.pills.pill_name.toLowerCase().includes(searchTerm.toLowerCase()));
+
   // Map over the prescriptions to construct the rows for the DataGrid
-  const rows = prescriptions.map((prescription) => ({
+  const rows = filteredPrescriptions.map((prescription) => ({
     id: prescription.id, // Ensure this is unique
     first_name: prescription.patients?.first_name || 'N/A', // Use optional chaining to avoid errors
     last_name: prescription.patients?.last_name || 'N/A', // Use optional chaining to avoid errors
