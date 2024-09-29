@@ -6,9 +6,10 @@ export default function PrescriptionDataList() {
   const { prescriptions, loading, error } = usePrescriptions();
 
   const columns = [
+    { field: "id", headerName: "Unique ID", width: 150 },
     { field: "patient_id", headerName: "Patient ID", width: 90 },
     { field: "pill_id", headerName: "Pill ID", width: 150 },
-    { field: "doctor_id", headerName: "Doctor", width: 100 },
+    { field: "doctor_id", headerName: "Doctor", width: 100 }
   ];
 
   if (loading) return <div>Loading...</div>;
