@@ -12,8 +12,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import supabase from '../../supabaseClient'; // Import supabase client, adjust path if necessary
+import { useNavigate } from 'react-router-dom';
+import supabase from '../../supabaseClient'; // Make sure this import path is correct
 
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon } from './CustomIcons';
@@ -42,7 +42,7 @@ export default function SignInCard() {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState(''); // Add state for general error messages
+  const [error, setError] = React.useState(''); // General error state
 
   const navigate = useNavigate(); // Initialize navigate function
 
@@ -54,41 +54,41 @@ export default function SignInCard() {
     setOpen(false);
   };
 
-  // Validate inputs and handle Supabase sign-in
+  // Handle form submission and Supabase sign-in
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email');
-    const password = data.get('password');
+    const email = data.get('email').trim();
+    const password = data.get('password').trim();
 
-    // Validate inputs before calling Supabase sign-in
-    if (validateInputs()) {
+    // Validate inputs before attempting to sign in
+    if (validateInputs(email, password)) {
       try {
-        const { error } = await supabase.auth.signInWithPassword({
+        console.log({ email, password });
+        // Sign in with Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
 
         if (error) {
-          // Handle authentication error
           setError(error.message);
+          console.error('Sign in error: ', error.message);
         } else {
-          // Navigate to dashboard upon successful login
-          navigate('/dashboard');
+          console.log('User signed in:', data);
+          navigate('/dashboard'); // Navigate to dashboard on successful login
         }
       } catch (err) {
-        setError('An error occurred during sign-in.');
+        setError('An unexpected error occurred during sign-in.');
+        console.error('Unexpected error during sign-in:', err);
       }
     }
   };
 
-  const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
+  const validateInputs = (email, password) => {
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage('Please enter a valid email address.');
       isValid = false;
@@ -97,7 +97,7 @@ export default function SignInCard() {
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password || password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage('Password must be at least 6 characters long.');
       isValid = false;
