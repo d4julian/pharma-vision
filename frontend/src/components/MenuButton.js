@@ -11,7 +11,7 @@ function MenuButton({ showBadge = false, ...props }) {
       invisible={!showBadge}
       sx={{ [`& .${badgeClasses.badge}`]: { right: 2, top: 2 } }}
     >
-      <IconButton size="small" {...props} />
+      <IconButton size="large" {...props} />
     </Badge>
   );
 }
