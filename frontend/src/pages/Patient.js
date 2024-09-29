@@ -35,7 +35,7 @@ export default function Patient() {
                         {/* Header component for the page title */}
                         <Header title="Patient Dashboard" />
                         {/* Main content grid where you can add patient-specific information */}
-                        <PrescriptionDataList title="Search Medications" pageSize={5}/>
+                        <PatientPrescriptionDataList title="Search Medications" pageSize={5}/>
                     </Stack>
                 </Box>
             </Box>
