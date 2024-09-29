@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import usePatients from '../hooks/patientData'; // Adjust the path as necessary
 
-export default function CustomizedDataGrid() {
+export default function CustomizedDataGrid({searchTerm}) {
   const { patients, loading, error } = usePatients();
 
   const columns = [
@@ -12,6 +12,12 @@ export default function CustomizedDataGrid() {
     { field: 'age', headerName: 'Age', width: 100 },
     { field: 'doctor_id', headerName: 'Doctor ID', width: 120 },
   ];
+    // Filtering the patients based on the search term
+    const filteredPatients = patients.filter((patient) => 
+      Object.values(patient).some((value) =>
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
