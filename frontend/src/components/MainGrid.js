@@ -41,7 +41,7 @@ const data = [
   },
 ];
 
-export default function MainGrid({ title = "Search Patients" }) {
+export default function MainGrid({ title = "Search Patients", pageSize = 20 }) {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
@@ -50,7 +50,7 @@ export default function MainGrid({ title = "Search Patients" }) {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ md: 12, lg: 9 }}>
-          <CustomizedDataGrid />
+          <CustomizedDataGrid size={pageSize}/>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
