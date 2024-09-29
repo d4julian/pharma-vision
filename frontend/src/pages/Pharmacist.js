@@ -16,7 +16,9 @@ import Button from '@mui/material/Button'; // Import the Button component
 export default function PharmacistDashboard() {
     const [searchTerm, setSearchTerm] = useState('');
     const [detections, setDetections] = useState([]);
-    const [selectedPatient, setSelectedPatient] = useState(null);
+    const [selectedPill, setSelectedPill] = useState(''); // Track the selected pill
+    const [isVisible, setIsVisible] = useState(false);
+    const [buttonText, setButtonText] = useState('Scan Pills');
 
   return (
     <AppTheme>
@@ -53,16 +55,26 @@ export default function PharmacistDashboard() {
                 <PatientDataList searchTerm={searchTerm} />
               </Grid>
               <Grid item xs={12} md={4}>
-                <PillsDropdown />
+              {isVisible && (
+                <WebcamCapture detections={detections} setDetections={setDetections} />
+                )}
+                <PillsDropdown onPillSelect={setSelectedPill} />
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => alert('Mama guebo')}
+                    onClick={() => {
+                        if (selectedPill) {
+                        setButtonText(isVisible ? 'Scan Pills' : 'Stop Scanning'); // Update button text
+                        setIsVisible(!isVisible); // Toggle visibility
+                        }
+                    }}
                     sx={{
-                        width: '100%', 
-                        mt: 2// Makes the button span 100% of its parent width
-                      }}
-                  >Scan Pills</Button>
+                        width: '100%',
+                        mt: 2, // Makes the button span 100% of its parent width
+                    }}
+                    >
+                    {buttonText} {/* Use buttonText state to dynamically set the button text */}
+                </Button>
               </Grid>
             </Grid>
           </Stack>

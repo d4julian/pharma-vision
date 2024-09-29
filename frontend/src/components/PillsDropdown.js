@@ -3,7 +3,7 @@ import { FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mu
 import supabase from '../supabaseClient'; // Import your Supabase client
 import emitter from '../emitter'; // Import emitter for event handling
 
-const PillsDropdown = () => {
+const PillsDropdown = ( {onPillSelect} ) => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -68,6 +68,12 @@ const PillsDropdown = () => {
     fetchPrescriptions(); // Fetch prescriptions when patient changes
   }, [patient]);
 
+  const handlePillSelect = (event) => {
+    const selected = event.target.value;
+    setSelectedPill(selected);
+    onPillSelect(selected); // Call the callback and pass the selected pill to the parent
+  };
+
   // Show loading state
   if (loading) return <CircularProgress />;
 
@@ -83,7 +89,7 @@ const PillsDropdown = () => {
         id="pills-dropdown"
         value={selectedPill}
         label="Select Pill"
-        onChange={(event) => setSelectedPill(event.target.value)} // Handle pill selection
+        onChange={handlePillSelect} // Handle pill selection
       >
         {prescriptions.length > 0 ? (
           prescriptions.map((pill, index) => (
