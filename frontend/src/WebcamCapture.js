@@ -30,42 +30,74 @@ const WebcamCapture = ({detections, setDetections}) => {
   
 
   // Function to draw bounding boxes on the canvas
+  // Function to draw bounding boxes on the canvas
+const drawBoundingBoxes = (detections) => {
+  const canvas = canvasRef.current;
+  const ctx = canvas.getContext('2d');
+  const video = webcamRef.current.video;
+
+  const videoWidth = video.videoWidth;
+  const videoHeight = video.videoHeight;
+
+  // Get the displayed webcam width and height (which could be different from the original video size)
+  const displayWidth = canvas.width;  // canvas is set to the same width as Webcam component
+  const displayHeight = canvas.height;
+
+  // Calculate the scaling factor between video dimensions and displayed canvas size
+  const xScale = displayWidth / videoWidth;
+  const yScale = displayHeight / videoHeight;
+
+  // Clear the canvas before drawing
+  ctx.clearRect(0, 0, displayWidth, displayHeight);
+
+  // Draw each bounding box
   const drawBoundingBoxes = (detections) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const videoWidth = webcamRef.current.video.videoWidth;
-    const videoHeight = webcamRef.current.video.videoHeight;
-
-    // Set canvas dimensions to match the webcam video
-    canvas.width = videoWidth;
-    canvas.height = videoHeight;
-
+    const video = webcamRef.current.video;
+  
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+  
+    // Get the size of the canvas, which should match the displayed webcam size
+    const displayWidth = canvas.width;
+    const displayHeight = canvas.height;
+  
+    // Calculate scaling factor between actual video size and displayed size
+    const xScale = displayWidth / videoWidth;
+    const yScale = displayHeight / videoHeight;
+  
     // Clear the canvas before drawing
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
-
-    // Draw each bounding box
+    ctx.clearRect(0, 0, displayWidth, displayHeight);
+  
+    // Loop through each detection to draw the bounding box
     detections.forEach((detection) => {
       const { x, y, width, height, class: className, confidence } = detection;
-
-      const x_min = x - width / 2;
-      const y_min = y - height / 2;
-
-      // Draw bounding box
+  
+      // Scale the bounding box coordinates to fit the smaller canvas
+      const x_min = (x - width / 2) * xScale;
+      const y_min = (y - height / 2) * yScale;
+      const boxWidth = width * xScale;
+      const boxHeight = height * yScale;
+  
+      // Draw the bounding box
       ctx.strokeStyle = 'green';
       ctx.lineWidth = 2;
-      ctx.strokeRect(x_min, y_min, width, height);
-
-      // Draw label and confidence score
+      ctx.strokeRect(x_min, y_min, boxWidth, boxHeight);
+  
+      // Draw the label and confidence
       ctx.font = '18px Arial';
       ctx.fillStyle = 'green';
       ctx.fillText(`${className} (${Math.round(confidence * 100)}%)`, x_min, y_min - 10);
     });
+  }
   };
+  
 
   useEffect(() => {
     // Set an interval to capture frames for real-time detection
     //const interval = setInterval(capture, 150);  // Adjust the interval as needed
-    const interval = setInterval(capture, 1000);  // Adjust the interval as needed
+    const interval = setInterval(capture, 300);  // Adjust the interval as needed
     return () => clearInterval(interval);  // Clean up on component unmount
   }, [capture]);
 
