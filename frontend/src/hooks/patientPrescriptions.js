@@ -19,7 +19,7 @@ const usePrescriptions = () => {
           .select(`
             id,
             patient_id,
-            doctors(name),
+            doctors(name), 
             pill_id,
             pills(pill_name, dosage),
             patients(first_name, last_name)
