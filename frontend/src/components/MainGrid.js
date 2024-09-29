@@ -49,7 +49,6 @@ export default function MainGrid({ title = "Search Patients", pageSize = 20 }) {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ md: 12, lg: 9 }}>
-          <CustomizedDataGrid size={pageSize}/>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
