@@ -8,7 +8,7 @@ import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
 
 import Search from './Search';
 
-export default function Header() {
+export default function Header({ searchTerm, setSearchTerm }) {
   return (
     <Stack
       direction="row"
@@ -24,7 +24,7 @@ export default function Header() {
     >
       <NavbarBreadcrumbs />
       <Stack direction="row" sx={{ gap: 1 }}>
-        <Search />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <CustomDatePicker />
         <MenuButton showBadge aria-label="Open notifications">
           <NotificationsRoundedIcon />

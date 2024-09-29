@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import React, { useState } from 'react';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -25,6 +24,8 @@ const xThemeComponents = {
 };
 
 export default function DoctorDashboard(props) {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
@@ -51,8 +52,8 @@ export default function DoctorDashboard(props) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainDoctorGrid />
+            <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <MainDoctorGrid searchTerm={searchTerm} />
           </Stack>
         </Box>
       </Box>

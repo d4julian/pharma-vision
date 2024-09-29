@@ -10,10 +10,8 @@ import SignInSide from './components/sign-in-side/SignInSide';
 
 
 function App() {
-  const [mode, toggleColorMode] = useDarkMode();
-
   return (
-    <AppTheme mode={mode}>
+    <AppTheme>
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
