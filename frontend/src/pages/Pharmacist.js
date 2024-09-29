@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -9,6 +9,7 @@ import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared t
 import WebcamCapture from '../WebcamCapture'; 
 
 export default function PharmacistDashboard() {
+    const [detections, setDetections] = useState([]);
   return (
     <AppTheme>
       <CssBaseline />
@@ -36,7 +37,8 @@ export default function PharmacistDashboard() {
             {/* Header component for the page title */}
             <Header title="Pharmacist Dashboard" />
             {/* Main content grid where you can add pharmacist-specific information */}
-            <WebcamCapture />
+            <WebcamCapture detections={detections} setDetections={setDetections}/>
+            How many pastillas: {detections.length}
             <MainGrid />
           </Stack>
         </Box>

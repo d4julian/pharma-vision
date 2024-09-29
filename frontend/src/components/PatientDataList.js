@@ -7,10 +7,10 @@ export default function CustomizedDataGrid({searchTerm}) {
   const { patients, loading, error } = usePatients();
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'age', headerName: 'Age', width: 100 },
-    { field: 'doctor_id', headerName: 'Doctor ID', width: 120 },
+    { field: 'id', headerName: 'ID', flex: 0.1 },
+    { field: 'last_name', headerName: 'First Name', flex: 0.3 },
+    { field: 'first_name', headerName: 'Last Name', flex: 0.3 },
+    { field: 'age', headerName: 'Age', flex: 0.2 },
   ];
     // Filtering the patients based on the search term
     const filteredPatients = patients.filter((patient) => 

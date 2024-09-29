@@ -19,7 +19,7 @@ const usePatients = () => {
 
       if (error) throw error; // Throw error to catch block
 
-      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+      const sortedData = data.sort((a, b) => a.last_name.localeCompare(b.last_name));
       setPatients(sortedData);
     } catch (error) {
       console.error('Error fetching patients:', error);
