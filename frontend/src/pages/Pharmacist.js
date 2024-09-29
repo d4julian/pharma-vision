@@ -8,7 +8,7 @@ import MainGrid from '../components/MainGrid'; // Main content grid for pharmaci
 import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared theme
 import WebcamCapture from '../WebcamCapture'; 
 
-const PharmacistDashboard = () => {
+export default function PharmacistDashboard() {
   return (
     <AppTheme>
       <CssBaseline />
@@ -37,11 +37,10 @@ const PharmacistDashboard = () => {
             <Header title="Pharmacist Dashboard" />
             {/* Main content grid where you can add pharmacist-specific information */}
             <WebcamCapture />
+            <MainGrid />
           </Stack>
         </Box>
       </Box>
     </AppTheme>
   );
 }
-
-export default memo(PharmacistDashboard);
