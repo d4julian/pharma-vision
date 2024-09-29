@@ -26,7 +26,7 @@ const WebcamCapture = ({detections, setDetections}) => {
     } catch (error) {
       console.error('Error detecting objects:', error);
     }
-  }, [webcamRef]);
+  }, [webcamRef, setDetections]);
   
 
   // Function to draw bounding boxes on the canvas
@@ -65,7 +65,7 @@ const WebcamCapture = ({detections, setDetections}) => {
   useEffect(() => {
     // Set an interval to capture frames for real-time detection
     //const interval = setInterval(capture, 150);  // Adjust the interval as needed
-    const interval = setInterval(capture, 3000);  // Adjust the interval as needed
+    const interval = setInterval(capture, 1000);  // Adjust the interval as needed
     return () => clearInterval(interval);  // Clean up on component unmount
   }, [capture]);
 
