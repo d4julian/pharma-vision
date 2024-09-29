@@ -58,8 +58,10 @@ export default function SignInCard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email').trim();
-    const password = data.get('password').trim();
+    const email = data.get('email');
+    const password = data.get('password');
+    console.log(email);
+    console.log(password);
 
     // Validate inputs before attempting to sign in
     if (validateInputs(email, password)) {
@@ -76,7 +78,7 @@ export default function SignInCard() {
           console.error('Sign in error: ', error.message);
         } else {
           console.log('User signed in:', data);
-          navigate('/dashboard'); // Navigate to dashboard on successful login
+          navigate('/'); // Navigate to dashboard on successful login
         }
       } catch (err) {
         setError('An unexpected error occurred during sign-in.');
