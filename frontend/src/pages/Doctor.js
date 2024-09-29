@@ -6,9 +6,10 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import AppNavbar from '../components/AppNavbar';
 import Header from '../components/Header';
-import MainGrid from '../components/MainGrid';
-// import SideMenu from './components/SideMenu';
+import MainDoctorGrid from './MainDoctorGrid';
+import SideMenu from '../components/SideMenu';
 import AppTheme from '../shared-theme/AppTheme';
+
 import {
   chartsCustomizations,
   dataGridCustomizations,
@@ -28,7 +29,7 @@ export default function DoctorDashboard(props) {
     <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
-        {/* <SideMenu /> */}
+        <SideMenu />
         <AppNavbar />
         {/* Main content */}
         <Box
@@ -51,7 +52,7 @@ export default function DoctorDashboard(props) {
             }}
           >
             <Header />
-            <MainGrid />
+            <MainDoctorGrid />
           </Stack>
         </Box>
       </Box>
