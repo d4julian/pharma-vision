@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import SideMenu from '../components/SideMenu'; // Sidebar for navigation
 import Header from '../components/Header'; // Header component
-import MainGrid from '../components/MainGrid'; // Main content grid for patient-specific data
 import AppTheme from '../shared-theme/AppTheme'; // Assuming you have a shared theme
+import PrescriptionDataList from '../components/PrescriptionDataList';
 
 export default function Patient() {
     return (
@@ -35,7 +35,7 @@ export default function Patient() {
                         {/* Header component for the page title */}
                         <Header title="Patient Dashboard" />
                         {/* Main content grid where you can add patient-specific information */}
-                        <MainGrid title="Search Medications" pageSize={5}/>
+                        <PrescriptionDataList title="Search Medications" pageSize={5}/>
                     </Stack>
                 </Box>
             </Box>

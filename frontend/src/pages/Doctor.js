@@ -6,9 +6,9 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import AppNavbar from '../components/AppNavbar';
 import Header from '../components/Header';
-import MainDoctorGrid from './MainDoctorGrid';
 import SideMenu from '../components/SideMenu';
 import AppTheme from '../shared-theme/AppTheme';
+import MainDoctorGrid from './MainDoctorGrid';
 
 import {
   chartsCustomizations,

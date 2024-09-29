@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import usePatients from '../hooks/patientData'; // Adjust the path as necessary
 
-export default function CustomizedDataGrid() {
+export default function PatientDataList() {
   const { patients, loading, error } = usePatients();
 
   const columns = [
