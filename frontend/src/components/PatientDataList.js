@@ -8,9 +8,9 @@ export default function CustomizedDataGrid() {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'age', headerName: 'Age', width: 100 },
-    { field: 'doctor_id', headerName: 'Doctor ID', width: 120 },
+    { field: 'last_name', headerName: 'First Name', width: 150 },
+    { field: 'first_name', headerName: 'Last Name', width: 100 },
+    { field: 'age', headerName: 'Age', width: 120 },
   ];
 
   if (loading) return <div>Loading...</div>;
