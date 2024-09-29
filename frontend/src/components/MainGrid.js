@@ -40,7 +40,7 @@ const data = [
   },
 ];
 
-export default function MainGrid({ title = "Search Patients" }) {
+export default function MainGrid({ title = "Search Patients", pageSize = 20 }) {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
