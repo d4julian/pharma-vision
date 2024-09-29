@@ -10,44 +10,33 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
-import {
-  IndiaFlag,
-  UsaFlag,
-  BrazilFlag,
-  GlobeFlag,
-} from '../internals/components/CustomIcons';
-
 const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
+  { label: 'Cialis', value: 50000 },
+  { label: 'Ibuphil', value: 35000 },
+  { label: 'Ibuphil-Cold', value: 10000 },
+  { label: 'Xyazil', value: 5000 },
 ];
 
 const countries = [
   {
-    name: 'India',
+    name: 'Cipro',
     value: 50,
-    flag: <IndiaFlag />,
-    color: 'hsl(220, 25%, 65%)',
+    color: 'hsl(200, 80%, 65%)',
   },
   {
-    name: 'USA',
+    name: 'Ibuphil',
     value: 35,
-    flag: <UsaFlag />,
-    color: 'hsl(220, 25%, 45%)',
+    color: 'hsl(100, 40%, 45%)',
   },
   {
-    name: 'Brazil',
+    name: 'Ibuphil-Cold',
     value: 10,
-    flag: <BrazilFlag />,
-    color: 'hsl(220, 25%, 30%)',
+    color: 'hsl(80, 25%, 30%)',
   },
   {
-    name: 'Other',
+    name: 'Xyazil',
     value: 5,
-    flag: <GlobeFlag />,
-    color: 'hsl(220, 25%, 20%)',
+    color: 'hsl(250, 25%, 20%)',
   },
 ];
 
@@ -112,10 +101,10 @@ PieCenterLabel.propTypes = {
 };
 
 const colors = [
-  'hsl(220, 20%, 65%)',
-  'hsl(220, 20%, 42%)',
-  'hsl(220, 20%, 35%)',
-  'hsl(220, 20%, 25%)',
+  'hsl(200, 80%, 65%)',
+  'hsl(100, 40%, 45%)',
+  'hsl(80, 25%, 30%)',
+  'hsl(250, 25%, 20%)',
 ];
 
 export default function ChartUserByCountry() {
@@ -126,7 +115,7 @@ export default function ChartUserByCountry() {
     >
       <CardContent>
         <Typography component="h2" variant="subtitle2">
-          Users by country
+          Common Medications
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PieChart

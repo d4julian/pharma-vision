@@ -1,44 +1,41 @@
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import usePrescriptions from "../hooks/patientPrescriptions"; // Adjust the path as necessary
 
-// PrescriptionDataList.js
-import React from 'react';
-import usePrescriptions from '../hooks/patientPrescriptions';
-import { DataGrid } from '@mui/x-data-grid';
-
-
-const PrescriptionDataList = () => {
+export default function PrescriptionDataList() {
   const { prescriptions, loading, error } = usePrescriptions();
 
   const columns = [
-    { field: 'first_name', headerName: 'First Name', width: 130 },
-    { field: 'last_name', headerName: 'Last Name', width: 130 },
-    { field: 'pill_name', headerName: 'Pill Name', width: 130 },
-    { field: 'dosage', headerName: 'Pill Dosage', width: 130 },
-    { field: 'name', headerName: 'Doctor Name', width: 150 },
+    { field: "patient_id", headerName: "Patient ID", width: 90 },
+    { field: "patient_name", headerName: "Patient Name", width: 150 }, // Added Patient Name
+    { field: "pill_name", headerName: "Pill Name", width: 150 }, // Added Pill Name
+    { field: "dosage", headerName: "Dosage", width: 100 }, // Added Dosage
+    { field: "doctor_name", headerName: "Doctor Name", width: 150 }, // Added Doctor Name
   ];
 
-  // Map over the prescriptions to construct the rows for the DataGrid
-  const rows = prescriptions.map((prescription) => ({
-    id: prescription.id, // Ensure this is unique
-    first_name: prescription.patients?.first_name || 'N/A', // Use optional chaining to avoid errors
-    last_name: prescription.patients?.last_name || 'N/A', // Use optional chaining to avoid errors
-    pill_name: prescription.pills?.pill_name || 'N/A', // Use optional chaining to avoid errors
-    dosage: prescription.pills?.dosage ? `${prescription.pills.dosage} mg` : 'N/A', // Use optional chaining to avoid errors
-    name: prescription.doctors?.name || 'N/A',
+  // Map prescriptions to the structure expected by the DataGrid
+  const rows = prescriptions.map((prescription, index) => ({
+    id: prescription.id || index, // Ensure a unique 'id' field
+    patient_id: prescription.patient_id,
+    patient_name: `${prescription.patients.first_name} ${prescription.patients.last_name}`, // Full patient name
+    pill_name: prescription.pills.pill_name,
+    dosage: prescription.pills.dosage,
+    doctor_name: prescription.doctors.name, // Doctor name from the nested doctors table
   }));
 
   if (loading) return <div>Loading...</div>;
-  // Update error rendering to display the error message correctly
-  if (error) return <div>Error: {error.message || 'An error occurred'}</div>;
-  return(
+  if (error) return <div>Error: {error}</div>; // Directly display error as a string
+
+  return (
     <DataGrid
       autoHeight
-      rows={rows}
+      rows={rows} // Pass the modified rows with the necessary data
       columns={columns}
       getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
       }
       initialState={{
-        pagination: { paginationModel: { pageSize: 20 } },
+        pagination: { paginationModel: { pageSize: 10 } },
       }}
       pageSizeOptions={[10, 20, 50]}
       disableColumnResize
@@ -46,5 +43,3 @@ const PrescriptionDataList = () => {
     />
   );
 }
-
-export default PrescriptionDataList;
