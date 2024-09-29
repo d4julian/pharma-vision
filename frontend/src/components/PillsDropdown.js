@@ -1,42 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mui/material';
-import supabase from '../supabaseClient';
+import supabase from '../supabaseClient'; // Import your Supabase client
+import emitter from '../emitter'; // Import emitter for event handling
 
-const PillsDropdown = ({ patientId }) => {
+const PillsDropdown = () => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedPill, setSelectedPill] = useState(''); // Track selected pill
+  const [selectedPill, setSelectedPill] = useState('');
+  const [patient, setPatient] = useState(null); // State to hold the selected patient
 
+  // Listen for patient selection via the emitter
+  useEffect(() => {
+    const patientListener = (selectedPatient) => {
+      setPatient(selectedPatient); // Update patient state when a patient is selected
+    };
+
+    emitter.on('patientSelected', patientListener);
+
+    return () => {
+      emitter.off('patientSelected', patientListener); // Clean up listener on component unmount
+    };
+  }, []);
+
+  // Fetch prescriptions based on the selected patient
   useEffect(() => {
     const fetchPrescriptions = async () => {
-      if (!patientId) return; // If no patient ID, do nothing
+      if (!patient || !patient.id) {
+        console.log('No patient selected or patient ID is missing');
+        return; // If no patient or no patient ID, do nothing
+      }
 
       setLoading(true);
       try {
-        const { data, error } = await supabase
+        // Step 1: Fetch the pill_id(s) from the prescriptions table based on patient_id
+        const { data: prescriptionData, error: prescriptionError } = await supabase
           .from('prescriptions')
-          .select('prescription_name')
-          .eq('patient_id', patientId); // Filter by patient_id
+          .select('pill_id')
+          .eq('patient_id', patient.id);
 
-        if (error) throw error; // Handle the error
+        if (prescriptionError) throw prescriptionError;
 
-        setPrescriptions(data);
+        if (prescriptionData.length === 0) {
+          setPrescriptions([]); // No prescriptions found for this patient
+          setLoading(false);
+          return;
+        }
+
+        // Step 2: Fetch the pill_name from the pills table based on pill_id(s)
+        const pillIds = prescriptionData.map(prescription => prescription.pill_id);
+        const { data: pillData, error: pillError } = await supabase
+          .from('pills')
+          .select('pill_name')
+          .eq('id', pillIds); // Fetch pill names matching the pill IDs
+
+        if (pillError) throw pillError;
+
+        setPrescriptions(pillData); // Set the fetched pill names
       } catch (err) {
         console.error('Error fetching prescriptions:', err);
-        setError(err);
+        setError('Error fetching prescriptions');
       } finally {
         setLoading(false); // Ensure loading is turned off
       }
     };
 
-    fetchPrescriptions(); // Fetch when patientId changes
-  }, [patientId]);
+    fetchPrescriptions(); // Fetch prescriptions when patient changes
+  }, [patient]);
 
-  if (loading) return <CircularProgress />; // Show loading state
+  // Show loading state
+  if (loading) return <CircularProgress />;
 
-  if (error) return <div>Error loading prescriptions</div>; // Show error
+  // Show error if there's any issue with the query
+  if (error) return <div>{error}</div>;
 
+  // Render the pills dropdown
   return (
     <FormControl fullWidth>
       <InputLabel id="pills-dropdown-label">Select Pill</InputLabel>
@@ -48,9 +86,9 @@ const PillsDropdown = ({ patientId }) => {
         onChange={(event) => setSelectedPill(event.target.value)} // Handle pill selection
       >
         {prescriptions.length > 0 ? (
-          prescriptions.map((prescription, index) => (
-            <MenuItem key={index} value={prescription.prescription_name}>
-              {prescription.prescription_name}
+          prescriptions.map((pill, index) => (
+            <MenuItem key={index} value={pill.pill_name}>
+              {pill.pill_name}
             </MenuItem>
           ))
         ) : (

@@ -17,6 +17,7 @@ export default function PharmacistDashboard() {
     const [searchTerm, setSearchTerm] = useState('');
     const [detections, setDetections] = useState([]);
     const [selectedPatient, setSelectedPatient] = useState(null);
+
   return (
     <AppTheme>
       <CssBaseline />
@@ -49,10 +50,10 @@ export default function PharmacistDashboard() {
             <Grid container spacing={1}>
               <Grid item xs={12} md={8}>
                 {/* Main content grid where you can add pharmacist-specific information */}
-                <PatientDataList searchTerm={searchTerm} onRowSelect={setSelectedPatient} />
+                <PatientDataList searchTerm={searchTerm} />
               </Grid>
               <Grid item xs={12} md={4}>
-                <PillsDropdown selectedPatient={selectedPatient} />
+                <PillsDropdown />
                 <Button
                     variant="contained"
                     color="primary"
