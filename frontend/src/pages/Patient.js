@@ -57,7 +57,7 @@ export default function Patient() {
                   xAxis={[
                     {
                       scaleType: "band",
-                      data: ["Women", "Men", "Other"],
+                      data: ["Men", "Women", "Children"],
                     },
                   ]}
                   series={[
