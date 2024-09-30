@@ -35,7 +35,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-export default function SignUpCard({toggleAuthMode}) {
+export default function LogInCard({ toggleAuthMode }) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
@@ -61,7 +61,7 @@ export default function SignUpCard({toggleAuthMode}) {
     const password = data.get("password");
     try {
       console.log({ email, password });
-      // Sign in with Supabase
+      // Log in with Supabase
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -69,7 +69,7 @@ export default function SignUpCard({toggleAuthMode}) {
 
       if (error) {
         setError(error.message);
-        console.error("Sign in error: ", error.message);
+        console.error("Log in error: ", error.message);
       } else {
         console.log("User signed in:", data);
         navigate("/"); // Navigate to dashboard on successful login
@@ -88,7 +88,7 @@ export default function SignUpCard({toggleAuthMode}) {
         variant="h4"
         sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
       >
-        Sign Up
+        Log in
       </Typography>
       <Box
         component="form"
@@ -145,12 +145,12 @@ export default function SignUpCard({toggleAuthMode}) {
         />
         {error && <Typography color="error">{error}</Typography>}
         <Button type="submit" fullWidth variant="contained">
-          Sign Up
+          Log in
         </Button>
         <Typography sx={{ textAlign: "center" }}>
-          Already have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Button onClick={toggleAuthMode} variant="text">
-            Log in
+            Sign up
           </Button>
         </Typography>
       </Box>
@@ -160,19 +160,19 @@ export default function SignUpCard({toggleAuthMode}) {
           type="button"
           fullWidth
           variant="outlined"
-          onClick={() => alert("Sign up with Google")}
+          onClick={() => alert("Sign in with Google")}
           startIcon={<GoogleIcon />}
         >
-          Sign up with Google
+          Log in with Google
         </Button>
         <Button
           type="button"
           fullWidth
           variant="outlined"
-          onClick={() => alert("Sign up with Facebook")}
+          onClick={() => alert("Sign in with Facebook")}
           startIcon={<FacebookIcon />}
         >
-          Sign up with Facebook
+          Log in with Facebook
         </Button>
       </Box>
     </Card>

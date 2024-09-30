@@ -96,7 +96,6 @@ const drawBoundingBoxes = (detections) => {
 
   useEffect(() => {
     // Set an interval to capture frames for real-time detection
-    //const interval = setInterval(capture, 150);  // Adjust the interval as needed
     const interval = setInterval(capture, 300);  // Adjust the interval as needed
     return () => clearInterval(interval);  // Clean up on component unmount
   }, [capture]);

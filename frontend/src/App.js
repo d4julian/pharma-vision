@@ -1,13 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useDarkMode } from './hooks/useDarkMode'; // The custom hook
-import Dashboard from './Dashboard';
-import DoctorDashboard from './pages/Doctor';
-import PharmacistDashboard from './pages/Pharmacist';
-import Patient from './pages/Patient';
-import AppTheme from './shared-theme/AppTheme';
-import SignInSide from './components/sign-in-side/SignInSide'; // Login page
-import SignUpCard from './components/sign-in-side/SignUpCard'; // Signup page
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useDarkMode } from "./hooks/useDarkMode"; // The custom hook
+import Dashboard from "./pages/Dashboard";
+import DoctorDashboard from "./pages/Doctor";
+import PharmacistDashboard from "./pages/Pharmacist";
+import Patient from "./pages/Patient";
+import AppTheme from "./shared-theme/AppTheme";
+import AuthPage from "./components/sign-in-side/AuthPage";
 
 function App() {
   const [mode, toggleColorMode] = useDarkMode();
@@ -20,8 +19,7 @@ function App() {
           <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/pharmacist" element={<PharmacistDashboard />} />
           <Route path="/patient" element={<Patient />} />
-          <Route path="/login" element={<SignInSide />} /> {/* Login route */}
-          <Route path="/signup" element={<SignUpCard />} /> {/* Signup route */}
+          <Route path="/authpage" element={<AuthPage />} />
         </Routes>
       </Router>
     </AppTheme>
